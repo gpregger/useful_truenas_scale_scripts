@@ -26,13 +26,17 @@ fi
 
 while read -r line 
 do
-    pod=`echo "$line" | tr -s " " |cut -d " " -f2`
-    break
+    status=`echo "$line" | tr -s " " |cut -d " " -f4`
+    if [ "$status" != "TaintToleration" ]
+    then
+        pod=`echo "$line" | tr -s " " |cut -d " " -f2`
+        break
+    fi
 done < <(echo "$pods")
 
 if [ "$pod" == "" ]
 then
-    echo "No running pod found in namespace $namespace"
+    echo "No pod found in namespace $namespace"
     exit 0
 fi
 
