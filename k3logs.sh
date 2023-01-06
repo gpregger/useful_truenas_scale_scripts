@@ -1,14 +1,16 @@
 #!/bin/bash
 
-if [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ $# == 0 ] || [ $# -gt 1 ] 
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ $# == 0 ] || [ $# -gt 2 ] 
 then
     echo
-    echo "Usage: k3logs PodNamespace" 
+    echo "Usage: k3logs PodNamespace [-f]" 
     echo 
     echo "The ix- prefix in the pod namespace is optional"
     echo "The Script will find the first Pod (from k3s get pods -A) in the specified namespace and show its logs"
     echo
-    echo "Example: k3logs nextcloud"
+    echo -f	follow the log output
+    echo
+    echo "Example: k3logs nextcloud -f"
     echo
     exit 0
 fi
@@ -40,4 +42,4 @@ then
     exit 0
 fi
 
-k3s kubectl logs --namespace $namespace $pod
+k3s kubectl logs --namespace $namespace $pod $2
