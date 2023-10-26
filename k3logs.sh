@@ -29,7 +29,7 @@ fi
 while read -r line 
 do
     status=`echo "$line" | tr -s " " |cut -d " " -f4`
-    if [ "$status" != "TaintToleration" ]
+    if [ "$status" != "TaintToleration" ] && [ "$status" != "UnexpectedAdmissionError" ]
     then
         pod=`echo "$line" | tr -s " " |cut -d " " -f2`
         break
